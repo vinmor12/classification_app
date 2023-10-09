@@ -10,9 +10,9 @@ to evaluate inference time from different classification models.
 Example of use:
 python3 classification_script.py \
 -im IMG \
--m /models/classification/googlenet/v1/IR/googlenet-v1.xml \
--i /data/images/aereo.png
---labels /data/labels/imagenet_2012.txt \
+-m models/classification/googlenet/v1/IR/googlenet-v1.xml \
+-i data/images/aereo.png
+--labels data/labels/imagenet_2012.txt \
 -ni 100
 
 Workflow:
