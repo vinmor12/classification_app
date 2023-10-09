@@ -30,6 +30,10 @@ You can use this application on CPU in the following way:
   ```
   source /opt/intel/2019_r1/openvino/bin/setupvars.sh -pyver 3.5
   ```
+  - see the available options
+  ```
+  python3 classification_script.py -h
+  ```
   - run the application to classify an image
   ```
   python3 classification_script.py \
@@ -83,6 +87,10 @@ If you want to use this application on FPGA with "Developer kit for OpenVINO too
   aocl diagnose
   ```
   - get the repository and switch to "classification_app" folder
+  - see the available options
+  ```
+  python3 classification_script.py -h
+  ```
   - run the application to classify an image on FPGA
   ```
   python3 classification_script.py \
