@@ -8,10 +8,7 @@ Script to classify images, videos or data streams from webcams and
 to evaluate inference time from different classification models.
 
 Example of use:
->> sudo su
->> source /opt/intel/2019_r1/openvino/bin/setupvars.sh -pyver 3.5
->> cd <path/to/application/folder>
->> python3 classification_script.py \
+python3 classification_script.py \
 -im IMG \
 -m /models/classification/googlenet/v1/IR/googlenet-v1.xml \
 -i /data/images/aereo.png
@@ -83,7 +80,7 @@ def build_argparser():
 
 # INFERENCE AND PROCESSING OUTPUT FUNCTION
 
-def inf_proc(nt_in,image,net,exec_net,input_blob,out_blob,labels_map):
+def infer_process(nt_in,image,net,exec_net,input_blob,out_blob,labels_map):
     
     # Process Input Image
     n, c, h, w = net.inputs[input_blob].shape
@@ -133,62 +130,58 @@ def main():
 
     # Pre-process input arguments
 
-    # Settings and Info about CAM mode
+    # Settings CAM mode
     if args.input_mode!="IMG" and args.input_mode!="VID":
         args.input_mode="CAM"
-        if args.input is not None:
+        if args.input is not None: # warnings about not required arguments
             log.info("Input Image/Video is not required for CAM mode")
             time.sleep(1)
         if args.number_iter is not None:
-            args.number_iter = int(1)
             log.info("Number of image is not required for CAM mode")
             time.sleep(1)
-        else:
-            args.number_iter = int(1)
+        args.number_iter = int(1) # convert "number_iter" to int
         if args.wait is not None:
-            args.wait = int(args.wait)
+            args.wait = int(args.wait) # convert "wait" to int
         else:
             args.wait = int(25)
+    # Settings IMG mode
     elif args.input_mode=="IMG":
-    # Settings and Info about IMG mode
-        if args.number_iter is None:
-            args.number_iter = int(1)
-            log.info("Min number of image: {}".format(args.number_iter))
-            time.sleep(1)
-        else:
-            args.number_iter = int(args.number_iter)
         if args.wait is not None:
-            args.wait = int(1)
-            log.info("Wait per frame is not required for IMG mode!")
+            log.info("Wait per frame is not required for IMG mode!") # warnings about not required arguments
             time.sleep(1)
-        else:
-            args.wait = int(1)
-    # Setting and Info about VID mode
-    elif args.input_mode=="VID":
-        args.input_mode="VID"
+        args.wait = int(1) # convert "wait" to int
         if args.number_iter is not None:
+            args.number_iter = int(args.number_iter) # convert "number_iter" to int
+            if args.number_iter <= 0:
+                args.number_iter = int(1) # min value of "number_iter"
+                log.info("Min number of iter: {}".format(args.number_iter))
+                time.sleep(1)
+        else: 
             args.number_iter = int(1)
+    # Setting VID mode
+    elif args.input_mode=="VID":
+        if args.number_iter is not None: # warnings about not required arguments
             log.info("Number of image is not required for CAM mode")
             time.sleep(1)
-        else:
-            args.number_iter = int(1)
+        args.number_iter = int(1) # convert "number_iter" to int
         if args.wait is not None:
-            args.wait = int(args.wait)
+            args.wait = int(args.wait) # convert "wait" to int
         else:
             args.wait = int(25)
 
-    # Settings and General Info
-    log.info("Input Mode: {}".format(args.input_mode))
+    # General Settings
+    log.info("Input Mode: {}".format(args.input_mode)) # show input mode
     time.sleep(1)
     if args.labels is None:
-        log.info("Path to a labels mapping file is not specified!")
+        log.info("Path to a labels mapping file is not specified!") # warning about not specified labels mapping file
         time.sleep(1)
-    if args.number_top>=10:
-        args.number_top = 10
+    if args.number_top<=0:
+        args.number_top = 1 # min value of "number_top"
+        log.info("Min value of top results : {}".format(args.number_top))
+        time.sleep(1)
+    if args.number_top>10:
+        args.number_top = 10 # clip "number_top" to 10
         log.info("Number of top results has been clipped to 10 for correct display")
-        time.sleep(1)
-    else:
-        log.info("Number of top results: {}".format(args.number_top))
         time.sleep(1)
     
     # Set Target Device and Load HW Plugin
@@ -249,13 +242,11 @@ def main():
     max_prob = 0
     new_frame_time = 0
     prev_frame_time = 0
-    old_time = 0
     sum_time = 0
-    if args.input_mode!="IMG":
-        if args.input_mode=="CAM":
-            vid = cv2.VideoCapture(0)
-        if args.input_mode=="VID":
-            vid = cv2.VideoCapture(args.input)
+    if args.input_mode=="CAM":
+        vid = cv2.VideoCapture(0)
+    if args.input_mode=="VID":
+        vid = cv2.VideoCapture(args.input)
     
     # Set font text
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -263,6 +254,7 @@ def main():
     # Loop
     log.info("Start loop")
     time.sleep(2)
+    
     while (True):
         if enable >= 1:
 
@@ -272,7 +264,7 @@ def main():
             # print model name and number of frame/image
             print("IR model: ",model_name,"\nframe N. ",flag-1)
         
-            # read and process input file from cam or image
+            # read and process input image/frame
             if args.input_mode=="IMG":
                 frame = cv2.imread(args.input)
                 str_fps = "N: "+str(round(flag-1,2))      
@@ -296,7 +288,7 @@ def main():
             if args.input_mode!="IMG":
                 log.info("Press 'q' to Exit or 'p' to Pause!")
             else:
-                print("."*30+"#", end = "\r")
+                print("."*30+"#", end = "\r") # inizialize loading bar for evaluating of average inference time
                 print("#"*int(flag*30/args.number_iter),end = "\r")
             
             # prepare and draw text on image
@@ -316,21 +308,20 @@ def main():
                 offset = offset + 25
                 cv2.putText(frame,raw[20:24],(180,offset),font,0.5,(0,0,255),2)
         
-            # inference (with "inf_proc" function defined before)
-            if args.input_mode != "IMG":
+            # inference (with "infer_process" function defined before)
+            if args.input_mode == "IMG":
+                out, inference_time = infer_process(args.number_top,frame,net,exec_net,input_blob,out_blob,labels_map)
+            else:
                 if ret == True:    
-                    out, inference_time = inf_proc(args.number_top,frame,net,exec_net,input_blob,out_blob,labels_map)
+                    out, inference_time = infer_process(args.number_top,frame,net,exec_net,input_blob,out_blob,labels_map)
                 else:
                     break
-            else:
-                out, inference_time = inf_proc(args.number_top,frame,net,exec_net,input_blob,out_blob,labels_map)
-
             
             # evaluate average time of inference  
             sum_time = sum_time + inference_time  
             inference_time = sum_time/(flag)
      
-        # show loading bar for evaluating of average inference time, show resize image and exit
+        # show loading bar for evaluating of average inference time, show the image with result and exit
         if args.input_mode=="IMG":
             print("."*30+"#", end = "\r")
             print("#"*int(flag*30/args.number_iter),end = "\r")
@@ -340,7 +331,7 @@ def main():
                 cv2.waitKey(0)
                 break
         else:
-        # show frame from cam and allow the system pause
+        # show frames and allow the system pause
             if flag > 1:
                 cv2.imshow(args.input_mode,cv2.resize(frame, (640,480), interpolation = cv2.INTER_AREA))
                 #cv2.imshow(args.input_mode,frame)
@@ -365,7 +356,7 @@ def main():
     if args.input_mode!="IMG": 
         vid.release()
     cv2.destroyAllWindows()
-    
+
+
 if __name__ == '__main__':
     sys.exit(main() or 0)
-
