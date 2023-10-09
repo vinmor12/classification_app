@@ -24,7 +24,7 @@ You can use this application in the following way:
   ```
   sudo su
   ```
-  - inizialize OpenVINO envarionment
+  - inizialize OpenVINO envarionment (check the correct path of your "setupvars.sh" file)
   ```
   source /opt/intel/2019_r1/openvino/bin/setupvars.sh -pyver 3.5
   ```
