@@ -34,9 +34,9 @@ You can use this application on CPU in the following way:
   ```
   python3 classification_script.py \
   -im IMG \
-  -m /models/classification/googlenet/v1/IR/googlenet-v1.xml \
-  -i /data/images/aereo.png \
-  --labels /data/labels/imagenet_2012.txt \
+  -m models/classification/googlenet/v1/IR/googlenet-v1.xml \
+  -i data/images/aereo.png \
+  --labels data/labels/imagenet_2012.txt \
   -nt 4 \
   -ni 100
   ```
@@ -44,9 +44,9 @@ You can use this application on CPU in the following way:
   ```
   python3 classification_script.py \
   -im VID \
-  -m /models/classification/googlenet/v1/IR/googlenet-v1.xml \
-  -i /data/videos/desk_video.mp4 \
-  --labels /data/labels/imagenet_2012.txt \
+  -m models/classification/googlenet/v1/IR/googlenet-v1.xml \
+  -i data/videos/desk_video.mp4 \
+  --labels data/labels/imagenet_2012.txt \
   -nt 4 \
   -w 200
   ```
@@ -54,8 +54,8 @@ You can use this application on CPU in the following way:
   ```
   python3 classification_script.py \
   -im CAM \
-  -m /models/classification/googlenet/v1/IR/googlenet-v1.xml \
-  --labels /data/labels/imagenet_2012.txt \
+  -m models/classification/googlenet/v1/IR/googlenet-v1.xml \
+  --labels data/labels/imagenet_2012.txt \
   -nt 4 \
   -w 200
   ```
@@ -87,9 +87,9 @@ If you want to use this application on FPGA with "Developer kit for OpenVINO too
   ```
   python3 classification_script.py \
   -im IMG \
-  -m /models/classification/squeezenet/1.1/IR_FP16/squeezenet1.1.xml \
-  -i /data/images/aereo.png \
-  --labels /data/labels/imagenet_2012.txt \
+  -m models/classification/squeezenet/1.1/IR_FP16/squeezenet1.1.xml \
+  -i data/images/aereo.png \
+  --labels data/labels/imagenet_2012.txt \
   -d HETERO:FPGA,CPU \
   -nt 4 \
   -ni 100
@@ -98,9 +98,9 @@ If you want to use this application on FPGA with "Developer kit for OpenVINO too
   ```
   python3 classification_script.py \
   -im VID \
-  -m /models/classification/squeezenet/1.1/IR_FP16/squeezenet1.1.xml \
-  -i /data/videos/desk_video.mp4 \
-  --labels /data/labels/imagenet_2012.txt \
+  -m models/classification/squeezenet/1.1/IR_FP16/squeezenet1.1.xml \
+  -i data/videos/desk_video.mp4 \
+  --labels data/labels/imagenet_2012.txt \
   -d HETERO:FPGA,CPU \
   -nt 4 \
   -w 200
@@ -109,8 +109,8 @@ If you want to use this application on FPGA with "Developer kit for OpenVINO too
   ```
   python3 classification_script.py \
   -im CAM \
-  -m /models/classification/squeezenet/1.1/IR_FP16/squeezenet1.1.xml \
-  --labels /data/labels/imagenet_2012.txt \
+  -m models/classification/squeezenet/1.1/IR_FP16/squeezenet1.1.xml \
+  --labels data/labels/imagenet_2012.txt \
   -d HETERO:FPGA,CPU \
   -nt 4 \
   -w 200
