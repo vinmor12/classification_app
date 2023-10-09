@@ -11,6 +11,8 @@ It has been tested on Ubuntu 16.04 LTS with the following models:
 
 You can find these models both in FP32 format (for CPU inference) and in FP16 format (for FPGA inference) in "models/classification".
 
+Inference on CPU
+  -  
 You can use this application on CPU in the following way:
   - open a new Terminal and clone the repository
   ```
@@ -61,7 +63,8 @@ You can use this application on CPU in the following way:
 You can also pause the classification of video frames with the "p" key and can resume it with the "c" key.
 You can exit with the "q" key.
 
-
+Inference on FPGA with "Developer kit for OpenVINO toolkit"
+  -  
 If you want to use this application on FPGA with "Developer kit for OpenVINO toolkit", you can follow these commands:
   - switch to super-user
   ```
@@ -112,4 +115,7 @@ If you want to use this application on FPGA with "Developer kit for OpenVINO too
   -nt 4 \
   -w 200
   ```
+
+You can also pause the classification of video frames with the "p" key and can resume it with the "c" key.
+You can exit with the "q" key.
 
