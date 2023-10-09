@@ -13,9 +13,9 @@ You can find these models both in FP32 format (for CPU inference) and in FP16 fo
 
 You can use this application in the following way:
   - open a new Terminal and clone the repository
-    ```
-    git clone https://github.com/vinmor12/classification_app.git
-    ```
+  ```
+  git clone https://github.com/vinmor12/classification_app.git
+  ```
   - switch in to "classification_app" folder
     ```
     cd classification_app
