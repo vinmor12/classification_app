@@ -127,5 +127,4 @@ If you want to use this application on FPGA with "Developer kit for OpenVINO too
 You can also pause the classification of video frames with the "p" key and can resume it with the "c" key.
 You can exit with the "q" key.
 
-![classification](https://raw.githubusercontent.com/vinmor12/classification_app/main/data/results/test.png)
 
