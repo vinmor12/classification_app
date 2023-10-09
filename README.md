@@ -47,7 +47,7 @@ You can use this application in the following way:
   --labels /data/labels/imagenet_2012.txt \
   -nt 4 \
   -w 200
-    ```
+  ```
   - run the application to classify data streams from webcam
   ```
   python3 classification_script.py \
