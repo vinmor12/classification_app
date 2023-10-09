@@ -4,7 +4,7 @@
 CLASSIFICATION
 Vincenzo.
 
-Script to lassify images, videos or data streams from webcams and 
+Script to classify images, videos or data streams from webcams and 
 to evaluate inference time from different classification models.
 
 Example of use:
@@ -215,8 +215,8 @@ def main():
                       "or --cpu_extension command line argument")
             sys.exit(1)
     
-    assert len(net.inputs.keys()) == 1, "Program supports only single input topologies"
-    assert len(net.outputs) == 1, "Program supports only single output topologies"
+    assert len(net.inputs.keys()) == 1, "Application supports only single input topologies"
+    assert len(net.outputs) == 1, "Application supports only single output topologies"
     
     # Allocate Input and Output Blobs
 
