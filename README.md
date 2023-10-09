@@ -57,3 +57,6 @@ You can use this application in the following way:
   -nt 4 \
   -w 200
   ```
+
+You can also pause the classification of video frames with the "p" key and can resume it with the "c" key.
+You can exit with the "q" key.
