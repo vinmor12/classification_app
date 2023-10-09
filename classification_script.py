@@ -4,28 +4,29 @@
 CLASSIFICATION
 Vincenzo.
 
-Script to evaluate inference time from different classification models with image or webcam (cam) on different target devices.
+Script to lassify images, videos or data streams from webcams and 
+to evaluate inference time from different classification models.
 
 Example of use:
 >> sudo su
 >> source /opt/intel/2019_r1/openvino/bin/setupvars.sh -pyver 3.5
->> cd <path/to/project/dir>
->> python3 my_classification_script.py \
+>> cd <path/to/application/folder>
+>> python3 classification_script.py \
 -im IMG \
--m models/classification/squeezenet/1.1/IR/squeezenet1.1.xml \
---labels data/labels/imagenet_2012.txt \
--i data/images/aereo.png \
+-m /models/classification/googlenet/v1/IR/googlenet-v1.xml \
+-i /data/images/aereo.png
+--labels /data/labels/imagenet_2012.txt \
 -ni 100
 
-WORKFLOW INFERENCE
-1 - SET TARGET DEVICE
-2 - LOAD HW PLUGIN
-3 - READ IR MODEL
-4 - ALLOCATE INPUT & OUTPUT BLOBS
-5 - LOAD MODEL TO PLUG-IN
-6 - READ DATA INTO INPUT BLOB
-7 - INFERENCE
-8 - PROCESS DATA FROM OUTPUT BLOB
+Workflow:
+1 - set target device
+2 - load HW plug-in 
+3 - read IR model 
+4 - allocate input & output blobs 
+5 - load model to plug-in 
+6 - read data into input blob 
+7 - inference 
+8 - process data from output blob
 """
 
 
