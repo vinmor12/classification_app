@@ -26,7 +26,7 @@ You can use this application on CPU in the following way:
   ```
   sudo su
   ```
-  - inizialize OpenVINO envarionment (check the correct path of your "setupvars.sh" file)
+  - inizialize OpenVINO environment (check the correct path of your "setupvars.sh" file)
   ```
   source /opt/intel/2019_r1/openvino/bin/setupvars.sh -pyver 3.5
   ```
@@ -74,7 +74,7 @@ If you want to use this application on FPGA with "Developer kit for OpenVINO too
   ```
   cd /opt/intel/2019_r1/openvino/deployment_tools/terasic_demo
   ```
-  - inizialize the envarionment
+  - inizialize the environment
   ```
   source setup_board_tsp.sh
   ```
