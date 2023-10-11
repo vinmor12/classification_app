@@ -9,8 +9,52 @@ It has been tested on Ubuntu 16.04 LTS with the following models:
   - googlenet-v1
   - googlenet-v2
 
-You can find these models both in FP32 format (for CPU inference) and in FP16 format (for FPGA inference) in "models/classification".
+You can find these models both in FP32 format (for CPU inference) and in FP16 format (for FPGA inference) in "models/classification" and their labels files in "data/labels".
 
+Usage
+- 
+python3 classification_script.py [-h] -m MODEL [-im INPUT_MODE] [-i INPUT] [-ni NUMBER_ITER] [-pp PLUGIN_DIR] [-l CPU_EXTENSION] [-w WAIT] [-d DEVICE] [--labels LABELS] [-nt NUMBER_TOP]  
+  
+The arguments in square brackets are optional.  
+  
+Options:  
+-
+  -h, --help  
+  Show help message and exit.  
+    
+  -m MODEL, --model MODEL  
+  Required. Path to an .xml file with a trained model.  
+    
+  -im INPUT_MODE, --input_mode INPUT_MODE  
+  Optional. Specify the input mode: IMG, VID or CAM. Default value is CAM.  
+  
+  -i INPUT, --input INPUT  
+  Required for IMG and VID mode. Path to an image or video files.  
+                          
+  -ni NUMBER_ITER, --number_iter NUMBER_ITER  
+  Optional for IMG mode. Number of iteration to compute inference time. Default value is 1.  
+                          
+  -pp PLUGIN_DIR, --plugin_dir PLUGIN_DIR  
+  Optional. Path to a plugin folder.  
+                          
+  -l CPU_EXTENSION, --cpu_extension CPU_EXTENSION  
+   Optional. Required for CPU custom layers. MKLDNN (CPU)-targeted custom layers.Absolute path to
+   a shared library with the kernels implementations.  
+                          
+  -w WAIT, --wait WAIT    
+  Optional for CAM or VID mode. Milliseconds of wait per frame. Default value is 25.  
+    
+  -d DEVICE, --device DEVICE  
+   Optional. Specify the target device to infer on: CPU, GPU, FPGA, HDDL, MYRIAD or
+   HETERO.Default value is CPU.  
+                          
+  --labels LABELS         
+  Optional. Path to a labels mapping file.  
+    
+  -nt NUMBER_TOP, --number_top NUMBER_TOP  
+  Optional. Number of top results (min 1 - max 10). Default value is 5.  
+                          
+                        
 Inference on CPU
   -  
 You can use this application on CPU in the following way:
